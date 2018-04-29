@@ -1,6 +1,6 @@
 # Interaptor
 
-https://travis-ci.org/jonatasdaniel/interaptor.svg?branch=master
+[![Build Status](https://travis-ci.org/jonatasdaniel/interaptor.svg?branch=master)](https://travis-ci.org/jonatasdaniel/interaptor)
 
 ## Installation
 
