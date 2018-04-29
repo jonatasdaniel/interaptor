@@ -1,6 +1,6 @@
 # Interaptor
 
-
+https://travis-ci.org/jonatasdaniel/interaptor.svg?branch=master
 
 ## Installation
 
