@@ -16,4 +16,4 @@ RUN bundle install
 VOLUME .:/gem/
 
 ENTRYPOINT ["bundle", "exec"]
-CMD ["rake", "-T"]
+CMD ["rspec", "spec"]
