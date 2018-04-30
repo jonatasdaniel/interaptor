@@ -14,7 +14,7 @@ RSpec.describe Interaptor do
   describe 'call' do
 
     describe 'success' do
-      let(:interactor) do
+      subject(:interactor) do
         build_interactor do
           def execute
             return "Yay!"
@@ -38,7 +38,7 @@ RSpec.describe Interaptor do
     end
 
     describe 'failure without return' do
-      let(:interactor) do
+      subject(:interactor) do
         build_interactor do
           def execute
             add_error('Something went wrong!', source: :something)
@@ -64,7 +64,7 @@ RSpec.describe Interaptor do
     end
 
     describe 'failure with return' do
-      let(:interactor) do
+      subject(:interactor) do
         build_interactor do
           attr_accessor :step
           def execute
@@ -93,7 +93,7 @@ RSpec.describe Interaptor do
 
 
   describe 'call! success' do
-    let(:interactor) do
+    subject(:interactor) do
       build_interactor do
         def execute
           return "Yay!"
