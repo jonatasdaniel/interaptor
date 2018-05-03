@@ -91,21 +91,68 @@ RSpec.describe Interaptor do
   end
 
 
+  describe 'call!' do
 
-  describe 'call! success' do
-    subject(:interactor) do
-      build_interactor do
-        def execute
-          return "Yay!"
+    describe 'success' do
+      subject(:interactor) do
+        build_interactor do
+          def execute
+            return "Yay!"
+          end
+        end
+      end
+
+      let(:result) { interactor.call! }
+
+      it 'should return result object with string' do
+        expect(result).to eq 'Yay!'
+      end
+    end
+
+    describe 'single fail! call' do
+      subject(:interactor) do
+        build_interactor do
+          def execute
+            fail!('Some error here', source: :something)
+          end
+        end
+      end
+
+      it 'should raise an exception with one error' do
+        expect { interactor.call! }.to raise_error do |failure|
+          expect(failure).to be_a Interaptor::Failure
+          expect(failure.errors).not_to be_empty
+          expect(failure.errors.size).to eq 1
+          expect(failure.errors.first.message).to eq 'Some error here'
+          expect(failure.errors.first.source).to eq :something
         end
       end
     end
 
-    let(:result) { interactor.call! }
+    describe 'multiple add_error with empty fail! call' do
+      subject(:interactor) do
+        build_interactor do
+          def execute
+            add_error('Some error here', source: :something)
+            add_error('Some second error here', source: :another)
 
-    it 'should return result object with string' do
-      expect(result).to eq 'Yay!'
+            fail!
+          end
+        end
+      end
+
+      it 'should raise an exception with two errors' do
+        expect { interactor.call! }.to raise_error do |failure|
+          expect(failure).to be_a Interaptor::Failure
+          expect(failure.errors).not_to be_empty
+          expect(failure.errors.size).to eq 2
+          expect(failure.errors.first.message).to eq 'Some error here'
+          expect(failure.errors.first.source).to eq :something
+          expect(failure.errors.last.message).to eq 'Some second error here'
+          expect(failure.errors.last.source).to eq :another
+        end
+      end
     end
-
   end
+
 end
