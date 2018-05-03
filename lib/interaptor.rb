@@ -2,8 +2,15 @@ require "interaptor/version"
 require "interaptor/result"
 require "interaptor/failure"
 require "interaptor/error"
+require "interaptor/callbacks"
 
 module Interaptor
+
+  def self.included(base)
+    base.class_eval do
+      include Callbacks
+    end
+  end
 
   def call(*params)
     begin
@@ -23,7 +30,9 @@ module Interaptor
   end
 
   def call!(*params)
+    run_before_callbacks
     value = execute(*params)
+    run_after_callbacks
 
     return value
   end

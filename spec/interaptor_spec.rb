@@ -1,12 +1,5 @@
 RSpec.describe Interaptor do
 
-  def build_interactor(&block)
-    interactor = Class.new
-    interactor.send(:include, Interaptor)
-    interactor.class_eval(&block) if block
-    interactor.new
-  end
-
   it "has a version number" do
     expect(Interaptor::VERSION).not_to be nil
   end
