@@ -15,5 +15,6 @@ RUN bundle install
 
 VOLUME .:/gem/
 
+
 ENTRYPOINT ["bundle", "exec"]
 CMD ["rspec", "spec"]
