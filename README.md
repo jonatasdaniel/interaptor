@@ -117,6 +117,26 @@ class CreateBankAccount
 end
 ```
 
+You also have the option to add before/after callbacks like:
+```ruby
+class CreateBankAccount
+  include Interaptor
+
+  before do
+    # execute something before execute method
+  end
+
+  after do
+    # execute something after execute method if no exception is thrown 
+  end
+
+  def execute
+    #something here
+  end
+
+end
+```
+
 
 ## Contributing
 
