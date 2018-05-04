@@ -47,7 +47,7 @@ class CreateBankAccount
 end
 ```
 
-and call it
+and `call` it
 
 ```ruby
 result = CreateBankAccount.new(my_logged_user).call(**bank_account_params)
@@ -61,7 +61,7 @@ end
 
 ```
 
-or you can call expecting an exception if some error happens
+or you can `call!` expecting an exception if some error happens
 ```ruby
 begin
   bank_account = CreateBankAccount.new(my_logged_user).call!(**bank_account_params)
