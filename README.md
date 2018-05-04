@@ -18,9 +18,59 @@ Or install it yourself as:
 
     $ gem install interaptor
 
+## Why?
+
+Interactor is a single purpose object used to encapsulate business logic of the application. Inspired by [collectiveidea/**interactor**](https://github.com/collectiveidea/interactor).
+
+The reason of create another Interactor Ruby gem is because I would like to have object that I could instantiate and pass parameters like a PORO object. I'm not a big fan of calling my business objects using class methods.
+
 ## Usage
 
+- create your interactor class
 
+```ruby
+class CreateBankAccount
+  include Interaptor
+
+  def initialize(current_user)
+    @current_user = current_user
+  end
+
+  def execute(name:, account_number:, routing_number:)
+    # do something
+    bank_account = BankAccount.create!(
+      name: name, account_number: account_number, routing_number: routing_number
+    )
+
+    return bank_account
+  end
+end
+```
+
+and call it
+
+```ruby
+result = CreateBankAccount.new(my_logged_user).call(**bank_account_params)
+if result.success?
+  result.value # value is the object returned in your interactor, in this case, bank_account
+else
+  result.errors.each do |error|
+    puts "Some error happened related to #{error.source}. Detail: #{error.message}"
+  end
+end
+
+```
+
+or you can call expecting an exception if some error happens
+```ruby
+begin
+  bank_account = CreateBankAccount.new(my_logged_user).call!(**bank_account_params)
+rescue Interaptor::Failure => e
+  e.errors.each do |error|
+    puts "Some error happened related to #{error.source}. Detail: #{error.message}"
+  end
+end
+```
 
 
 ## Contributing
