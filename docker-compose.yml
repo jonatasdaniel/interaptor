@@ -4,5 +4,3 @@ services:
     build: .
     volumes:
       - .:/gem
-      - ~/.ssh:/root/.ssh
-      - ~/.gem:/root/.gem
