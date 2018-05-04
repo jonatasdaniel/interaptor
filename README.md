@@ -72,6 +72,51 @@ rescue Interaptor::Failure => e
 end
 ```
 
+To add errors inside your interactor class you have three ways:
+- add error and keep with your interactor processing (keep in mind that this option will not raise an exception when calling `call!` method)
+```ruby
+class CreateBankAccount
+  include Interaptor
+
+  def execute
+    add_error('Some error', source: 'some optional source')
+
+    #do something
+  end
+
+end
+```
+
+- add error and stop processing
+```ruby
+class CreateBankAccount
+  include Interaptor
+
+  def execute
+    fail!('Some error', source: 'some optional source')
+
+    #nothing more will be executed here
+  end
+
+end
+```
+
+- add multiple errors and stop processing
+```ruby
+class CreateBankAccount
+  include Interaptor
+
+  def execute
+    add_error('Some error', source: 'some optional source')
+    add_error('Some error again', source: 'some optional source')
+    fail!
+
+    #nothing more will be executed here
+  end
+
+end
+```
+
 
 ## Contributing
 
