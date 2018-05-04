@@ -142,6 +142,9 @@ end
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/jonatasdaniel/interaptor. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
+To run tests:
+`docker-compose up`
+
 To release a new version:
 `docker-compose run --rm -v ~/.gitconfig:/root/.gitconfig -v ~/.ssh/:/root/.ssh/ -v ~/.gem/:/root/.gem/ -v $(pwd):/interaptor/ -w /interaptor interaptor rake release`
 
