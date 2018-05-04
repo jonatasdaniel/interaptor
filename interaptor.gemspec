@@ -12,6 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Interactor gem for ruby apps}
   spec.description   = %q{Easy Interactor gem for ruby apps}
   spec.license       = "MIT"
+  spec.homepage      = "https://github.com/jonatasdaniel/interaptor"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
