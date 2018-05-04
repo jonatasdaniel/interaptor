@@ -9,11 +9,11 @@ RUN touch ~/.gemrc && \
   gem install bundler && \
   mkdir -p /gem/
 
-WORKDIR /gem/
-ADD . /gem/
+WORKDIR /interaptor/
+ADD . /interaptor/
 RUN bundle install
 
-VOLUME .:/gem/
+VOLUME .:/interaptor/
 
 
 ENTRYPOINT ["bundle", "exec"]

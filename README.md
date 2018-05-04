@@ -127,7 +127,7 @@ class CreateBankAccount
   end
 
   after do
-    # execute something after execute method if no exception is thrown 
+    # execute something after execute method if no exception is thrown
   end
 
   def execute
@@ -141,6 +141,9 @@ end
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/jonatasdaniel/interaptor. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+
+To release a new version:
+`docker-compose run --rm -v ~/.gitconfig:/root/.gitconfig -v ~/.ssh/:/root/.ssh/ -v ~/.gem/:/root/.gem/ -v $(pwd):/gem/ -w /gem interaptor rake release`
 
 ## License
 

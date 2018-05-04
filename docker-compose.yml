@@ -1,6 +1,6 @@
 version: '2'
 services:
-  gem:
+  interaptor:
     build: .
     volumes:
-      - .:/gem
+      - .:/interaptor
