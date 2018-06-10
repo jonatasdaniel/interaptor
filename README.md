@@ -22,7 +22,7 @@ Or install it yourself as:
 
 Interactor is a single purpose object used to encapsulate business logic of the application. Inspired by [collectiveidea/**interactor**](https://github.com/collectiveidea/interactor).
 
-The reason of create another Interactor Ruby gem is because I would like to have object that I could instantiate and pass parameters like a PORO object. I'm not a big fan of calling my business objects using class methods.
+The reason behind creating another Interactor Ruby gem is: I would like to have an object that I could instantiate and pass parameters in, like a PORO object. I'm not a big fan of calling my business objects using class methods.
 
 ## Usage
 
@@ -79,7 +79,7 @@ class CreateBankAccount
   include Interaptor
 
   def execute
-    add_error('Some error', source: 'some optional source')
+    add_error('Some error', source: 'optional source')
 
     #do something
   end
@@ -93,7 +93,7 @@ class CreateBankAccount
   include Interaptor
 
   def execute
-    fail!('Some error', source: 'some optional source')
+    fail!('Some error', source: 'optional source')
 
     #nothing more will be executed here
   end
@@ -107,8 +107,8 @@ class CreateBankAccount
   include Interaptor
 
   def execute
-    add_error('Some error', source: 'some optional source')
-    add_error('Some error again', source: 'some optional source')
+    add_error('Some error', source: 'optional source')
+    add_error('Some error again', source: 'optional source')
     fail!
 
     #nothing more will be executed here
