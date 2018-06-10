@@ -17,14 +17,14 @@ module Interaptor
       value = call!(*params)
 
       if @result && !@result.success?
-        return Interaptor::Result.new(success: false, errors: @result.errors)
+        return Interaptor::Result.new(errors: @result.errors)
       end
 
       return Interaptor::Result.new.tap do |result|
         result.value = value
       end
     rescue Interaptor::Failure => e
-      return Interaptor::Result.new(success: false, errors: e.errors)
+      return Interaptor::Result.new(errors: e.errors)
     end
 
   end
@@ -38,7 +38,7 @@ module Interaptor
   end
 
   def add_error(message, source: nil)
-    @result ||= Interaptor::Result.new(success: false)
+    @result ||= Interaptor::Result.new
     @result.add_error(Interaptor::Error.new(message, source))
   end
 
