@@ -2,8 +2,7 @@ class Interaptor::Result
 
   attr_accessor :value
 
-  def initialize(success: true, errors: [])
-    @success = success
+  def initialize(errors: [])
     @errors = errors
   end
 
@@ -12,11 +11,10 @@ class Interaptor::Result
   end
 
   def success?
-    @success && @errors.empty?
+    @errors.empty?
   end
 
   def add_error(error)
-    success = false
     @errors ||= []
     @errors << error
   end
