@@ -11,12 +11,11 @@ class Interaptor::Result
   end
 
   def success?
-    @errors.empty?
+    errors.empty?
   end
 
   def add_error(error)
-    @errors ||= []
-    @errors << error
+    errors << error
   end
 
 end

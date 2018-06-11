@@ -56,6 +56,25 @@ RSpec.describe Interaptor do
       end
     end
 
+    describe 'failure without return with empty errors' do
+      subject(:interactor) do
+        build_interactor do
+          def execute
+            fail!
+          end
+        end
+      end
+
+      let(:result) { interactor.call }
+
+      it 'should raise an exception' do
+        expect { interactor.call! }.to raise_error do |error|
+          expect(error).to be_a RuntimeError
+          expect(error.message).to eq 'You cannot call fail! with empty errors!'
+        end
+      end
+    end
+
     describe 'failure with return' do
       subject(:interactor) do
         build_interactor do
