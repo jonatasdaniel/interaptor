@@ -45,6 +45,8 @@ module Interaptor
   def fail!(message=nil, source: nil)
     add_error(message, source: source) if message
 
+    raise 'You cannot call fail! with empty errors!' if @result.nil? || @result.errors.empty?
+
     raise Interaptor::Failure.new(@result ? @result.errors : [])
   end
 
