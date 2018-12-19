@@ -69,7 +69,7 @@ RSpec.describe Interaptor do
 
       it 'should raise an exception' do
         expect { interactor.call! }.to raise_error do |error|
-          expect(error).to be_a RuntimeError
+          expect(error).to be_a StandardError
           expect(error.message).to eq 'You cannot call fail! with empty errors!'
         end
       end
