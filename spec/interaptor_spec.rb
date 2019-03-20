@@ -167,4 +167,80 @@ RSpec.describe Interaptor do
     end
   end
 
+  describe 'call block' do
+
+    describe 'success' do
+      subject(:interactor) do
+        build_interactor do
+          def execute
+            return "Yay!"
+          end
+        end
+      end
+
+      it 'should have result object in the block' do
+        interactor.call do |result|
+          expect(result).to be_success
+          expect(result).to be_a Interaptor::Result
+          expect(result.value).to eq 'Yay!'
+        end
+      end
+    end
+
+    describe 'failure without return' do
+      subject(:interactor) do
+        build_interactor do
+          def execute
+            add_error('Something went wrong!', source: :something)
+            add_error('Something went wrong again!', source: :something)
+          end
+        end
+      end
+
+      it 'should not be success' do
+        interactor.call do |result|
+          expect(result).not_to be_success
+        end
+      end
+
+      it 'should have two errors' do
+        interactor.call do |result|
+          expect(result.errors).not_to be_empty
+          expect(result.errors.size).to eq 2
+          expect(result.errors.first.message).to eq 'Something went wrong!'
+          expect(result.errors.first.source).to eq :something
+          expect(result.errors.last.message).to eq 'Something went wrong again!'
+          expect(result.errors.last.source).to eq :something
+        end
+      end
+    end
+
+    describe 'failure with return' do
+      subject(:interactor) do
+        build_interactor do
+          attr_accessor :step
+          def execute
+            fail!('Something went wrong!', source: :something)
+            fail!('Something went wrong again!', source: :something)
+          end
+        end
+      end
+
+      it 'should not be success' do
+        interactor.call do |result|
+          expect(result).not_to be_success
+        end
+      end
+
+      it 'should have one error' do
+        interactor.call do |result|
+          expect(result.errors).not_to be_empty
+          expect(result.errors.size).to eq 1
+          expect(result.errors.first.message).to eq 'Something went wrong!'
+          expect(result.errors.first.source).to eq :something
+        end
+      end
+    end
+  end
+
 end
