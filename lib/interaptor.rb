@@ -17,16 +17,17 @@ module Interaptor
       value = call!(*params)
 
       if @result && !@result.success?
-        return Interaptor::Result.new(errors: @result.errors)
+        result = Interaptor::Result.new(errors: @result.errors)
+      else
+        result = Interaptor::Result.new.tap do |result|
+          result.value = value
+        end
       end
-
-      return Interaptor::Result.new.tap do |result|
-        result.value = value
-      end
+      block_given? ? yield(result) : result
     rescue Interaptor::Failure => e
-      return Interaptor::Result.new(errors: e.errors)
+      result = Interaptor::Result.new(errors: e.errors)
+      block_given? ? yield(result) : result
     end
-
   end
 
   def call!(*params)
